@@ -16,9 +16,7 @@ from sklearn.metrics import (
 )
 from sklearn.svm import SVC
 
-# =========================
 # FEATURE EXTRACTION
-# =========================
 def extract_mfcc_features(audio_path):
     try:
         audio_data, sr = librosa.load(audio_path, sr=16000)
@@ -28,10 +26,7 @@ def extract_mfcc_features(audio_path):
     mfccs = librosa.feature.mfcc(y=audio_data, sr=sr, n_mfcc=13)
     return np.mean(mfccs.T, axis=0)
 
-
-# =========================
 # LOAD DATASET
-# =========================
 def load_dataset(csv_path):
     df = pd.read_csv(csv_path)
 
@@ -49,10 +44,7 @@ def load_dataset(csv_path):
 
     return np.array(X), np.array(y)
 
-
-# =========================
 # TRAIN + VISUALIZE
-# =========================
 def visualize_model(csv_path):
     print("Loading dataset...")
     X, y = load_dataset(csv_path)
@@ -76,9 +68,7 @@ def visualize_model(csv_path):
     y_pred = model.predict(X_test)
     y_prob = model.predict_proba(X_test)[:, 1]
 
-    # =========================
     # 1. CONFUSION MATRIX
-    # =========================
     cm = confusion_matrix(y_test, y_pred)
 
     plt.figure()
@@ -88,9 +78,7 @@ def visualize_model(csv_path):
     plt.ylabel("Actual")
     plt.show()
 
-    # =========================
     # 2. ROC CURVE
-    # =========================
     fpr, tpr, _ = roc_curve(y_test, y_prob)
     roc_auc = auc(fpr, tpr)
 
@@ -103,9 +91,7 @@ def visualize_model(csv_path):
     plt.legend()
     plt.show()
 
-    # =========================
-    # 3. ACTUAL vs PREDICTED (LIKE YOUR IMAGE)
-    # =========================
+    # 3. ACTUAL vs PREDICTED 
     plt.figure()
     plt.scatter(y_test, y_pred)
 
@@ -117,17 +103,13 @@ def visualize_model(csv_path):
     plt.title("Actual vs Predicted")
     plt.show()
 
-    # =========================
     # 4. CLASS DISTRIBUTION
-    # =========================
     plt.figure()
     sns.countplot(x=y)
     plt.title("Class Distribution (0 = Real, 1 = Fake)")
     plt.show()
 
-    # =========================
     # 5. MFCC FEATURE DISTRIBUTION
-    # =========================
     plt.figure()
     plt.plot(X[0])
     plt.title("Sample MFCC Feature Vector")
@@ -138,10 +120,7 @@ def visualize_model(csv_path):
     print("\nClassification Report:\n")
     print(classification_report(y_test, y_pred))
 
-
-# =========================
 # RUN
-# =========================
 if __name__ == "__main__":
     csv_path = "/Users/Khushi/Desktop/ML/DeepFake-Audio-Detection-MFCC/dataset_full.csv"
     visualize_model(csv_path)
