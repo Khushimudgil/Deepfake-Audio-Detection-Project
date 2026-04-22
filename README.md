@@ -141,7 +141,9 @@ Upload an audio file to check whether it is **real or deepfake**.
 ## Authors
 
 Khushi Mudgil 
+
 Shristi
+
 Daksh Bansal
 
 [1]: https://arxiv.org/abs/1911.01601?utm_source=chatgpt.com "ASVspoof 2019: A large-scale public database of synthesized, converted and replayed speech"
